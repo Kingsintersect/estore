@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import IUser from "../interfaces/UserInterface";
+import IUser from "../interfaces/user.interface";
 
 
 

@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import userRouter from './routes/user.route';
 
 dotenv.config()
 
@@ -20,3 +21,5 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   return console.log(`Express is listening at http://localhost:${port}`);
 });
+
+app.use('/api/user', userRouter)
