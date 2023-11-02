@@ -4,10 +4,13 @@ import IUser from "../interfaces/user.interface";
 
 
 const userSchema = new mongoose.Schema<IUser>({
-    username: {
+    firstName: {
         type: String,
         required: true,
-        unique: true,
+    },
+    lastName: {
+        type: String,
+        required: true,
     },
     email: {
         type: String,
@@ -22,4 +25,4 @@ const userSchema = new mongoose.Schema<IUser>({
 
 const User = mongoose.model<IUser>('User', userSchema);
 
-export default User;
+export default User; 

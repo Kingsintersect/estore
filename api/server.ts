@@ -3,8 +3,11 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRouter from './routes/user.route';
 import authRouter from './routes/auth.route';
+import cors from 'cors';
 
-dotenv.config()
+// const cors=require('cors');
+
+dotenv.config();
 
 mongoose.connect(process.env.MONGO).then(() => {
   console.log("Connected to MongoDB");
@@ -13,9 +16,15 @@ mongoose.connect(process.env.MONGO).then(() => {
 })
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT;
+const corsOptions = {
+  credentials: true,
+  origin: process.env.ORIGIN,
+  optionsSuccessStatus: 200,
+}
 
-app.use(express.json())
+app.use(express.json());
+app.use(cors());
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
