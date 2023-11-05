@@ -4,16 +4,11 @@ import dotenv from 'dotenv';
 import userRouter from './routes/user.route';
 import authRouter from './routes/auth.route';
 import cors from 'cors';
+import { trim } from './middleware/trim.middleware';
 
 // const cors=require('cors');
 
 dotenv.config();
-
-mongoose.connect(process.env.MONGO).then(() => {
-  console.log("Connected to MongoDB");
-}).catch((err) => {
-  console.log(err)
-})
 
 const app = express();
 const port = process.env.PORT;
@@ -25,9 +20,16 @@ const corsOptions = {
 
 app.use(express.json());
 app.use(cors());
+app.use(trim);
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
+});
+
+mongoose.connect(process.env.MONGO).then(() => {
+  console.log("Connected to MongoDB");
+}).catch((err) => {
+  console.log(err)
 });
 
 app.listen(port, () => {
