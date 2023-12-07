@@ -4,6 +4,6 @@ import { profile, test } from '../controllers/user.controller';
 const router = express.Router();
 
 router.get('/test', test);
-router.post('/profile', profile);
+router.get('/profile', profile);
 
 export default router;
