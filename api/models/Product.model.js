@@ -1,4 +1,5 @@
 import mongoose, { SchemaType } from "mongoose";
+import Category from "./Category.model";
 
 
 const productSchema = new mongoose.Schema({
@@ -42,8 +43,8 @@ const productSchema = new mongoose.Schema({
         type: Number,
     },
 
-    categoryId: {
-        type: String
+    category: {
+        type: Category,
     }
 }, { timestamps: true });
 

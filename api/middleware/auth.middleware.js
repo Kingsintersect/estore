@@ -1,10 +1,9 @@
-import { NextFunction, Request, Response } from "express";
-import User from "../models/User.model";
+import User from "../models/User.model.js";
 import jwt from "jsonwebtoken";
-import { errorHandler } from "../utils/error";
+import { errorHandler } from "../utils/error.js";
 
 
-export default async (req: Request, res:Response, next: NextFunction) => {
+export default async (req, res, next) => {
     try {
         // Access a specific header
         const cookie = req.cookies.access_token;

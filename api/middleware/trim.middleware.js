@@ -1,6 +1,5 @@
-import { Response, Request, NextFunction } from "express";
 
-export const trim = (req: Request, res: Response, next: NextFunction) => {
+export const trim = (req, res, next) => {
     const exception = ['password'];
 
     Object.keys(req.body).forEach((key) => {

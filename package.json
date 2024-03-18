@@ -2,13 +2,11 @@
   "name": "y",
   "version": "1.0.0",
   "description": "Multi-vendor e-commerce application",
-  "main": "server.ts",
+  "main": "server.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node api/server.js",
-    "server": "nodemon --exec ts-node api/server.ts",
-    "client": "cd gemstore && npm run dev",
-    "dev": "concurrently \"npm run server\" \"npm run client\" -n server,client"
+    "start": "node api/server.js",
+    "dev": "nodemon api/server.js"
   },
   "author": "",
   "license": "ISC",
@@ -32,6 +30,7 @@
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.2",
+    "mongodb": "6.4",
     "mongoose": "^7.6.4"
   }
 }

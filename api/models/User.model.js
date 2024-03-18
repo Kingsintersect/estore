@@ -1,9 +1,6 @@
 import mongoose from "mongoose";
-import IUser from "../interfaces/user.interface";
-import { Address } from "../interfaces/user.interface";;
 
-
-const addressSchema = new mongoose.Schema<Address>({
+const addressSchema = new mongoose.Schema({
     userId: {
         type: String,
     },
@@ -24,7 +21,7 @@ const addressSchema = new mongoose.Schema<Address>({
     },
 })
 
-const userSchema = new mongoose.Schema<IUser>({
+const userSchema = new mongoose.Schema({
     firstName: {
         type: String,
         required: true,
@@ -56,6 +53,6 @@ const userSchema = new mongoose.Schema<IUser>({
 }, { timestamps: true });
 
 
-const User = mongoose.model<IUser>('User', userSchema);
+const User = mongoose.model('User', userSchema);
 
 export default User;
