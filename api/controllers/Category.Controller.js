@@ -5,7 +5,6 @@ import Category from "../models/Category.model.js";
 
 export const createARecord = async (req, res, next) => {
     // Access a specific header
-    VerifyUser(req);
     const categoryItems = { ...req.body };
     if (categoryItems.level == 1) categoryItems.parentCategory = "NULL";
     categoryItems.title = toCamelCase(categoryItems.title)
@@ -33,7 +32,6 @@ export const createARecord = async (req, res, next) => {
 }
 
 export const readAllRecord = async (req, res, next) => {
-    VerifyUser(req);
 
     try {
         const allCategory = await Category.find({});
@@ -46,7 +44,6 @@ export const readAllRecord = async (req, res, next) => {
 }
 
 export const readRecordById = async (req, res, next) => {
-    VerifyUser(req);
 
     try {
         const SingleCategory = await Category.findById(req.params.id);
@@ -59,7 +56,6 @@ export const readRecordById = async (req, res, next) => {
 }
 
 export const updateRecord = async (req, res, next) => {
-    VerifyUser(req);
 
     try {
         const updatedRecord = await Category.findByIdAndUpdate(req.params.id, {
@@ -73,7 +69,6 @@ export const updateRecord = async (req, res, next) => {
 }
 
 export const deleteRecord = async (req, res, next) => {
-    VerifyUser(req);
 
     try {
         await Category.findByIdAndDelete(req.params.id);
@@ -84,14 +79,6 @@ export const deleteRecord = async (req, res, next) => {
     }
 }
 
-
-// important functions
-const VerifyUser = (requestHandler) => {
-    const token = requestHandler.get('Authorization').split(' ')[1];
-    if (!token) return next(errorHandler(401, "Unauthenticated Token!"));
-    const decoded_token = jwt.verify(token, process.env.JWT_SECRET);
-    const email = decoded_token["email"];
-}
 
 
 

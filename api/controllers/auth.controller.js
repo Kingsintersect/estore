@@ -6,14 +6,14 @@ import { errorHandler } from "../utils/error.js";
 
 export const signup = async (req, res, next) => {
 
-    const { firstName, lastName, email, password } = req.body;
+    const { firstName, lastName, email, password, isAdmin } = req.body;
     const hashedPassword = bcrypt.hashSync(password, 10);
-    const newUser = new User({ firstName, lastName, email, password: hashedPassword });
+    const newUser = new User({ firstName, lastName, email, password: hashedPassword, isAdmin });
 
     try {
-        await newUser.save();
-        const token = setToken(email, res);
-        res.status(200).json({ access_token: token, message: "User creaed successfully!" });
+        const savedUser = await newUser.save();
+        const token = setToken(email, isAdmin, res);
+        res.status(200).json({ user: savedUser, access_token: token, message: "User creaed successfully!" });
     } catch (error) {
         next(error);
     }
@@ -35,7 +35,7 @@ export const signin = async (req, res, next) => {
         const validPassword = bcrypt.compareSync(password, validUser.password);
         if (!validPassword) return next(errorHandler(401, "Wrong Credentials!"));
 
-        const token = setToken(email, res);
+        const token = setToken(email, validUser.isAdmin, res);
         return res.status(200).json({ access_token: token })
     } catch (error) {
         next(error)
@@ -43,8 +43,8 @@ export const signin = async (req, res, next) => {
 
 }
 
-const setToken = (email, res) => {
-    const access_token = jwt.sign({ email }, process.env.JWT_SECRET);
+const setToken = (email, isAdmin, res) => {
+    const access_token = jwt.sign({ email: email, isAdmin: isAdmin }, process.env.JWT_SECRET);
     res.set(
         'Set-Cookie',
         cookie.serialize('access_token', access_token, {

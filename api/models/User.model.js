@@ -49,6 +49,10 @@ const userSchema = new mongoose.Schema({
     payment_information: [],
     review: [],
     rating: [],
+    isAdmin: {
+        type: Boolean,
+        default: false,
+    }
 
 }, { timestamps: true });
 
