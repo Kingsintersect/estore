@@ -6,9 +6,9 @@ const router = express.Router();
 
 router.post('/test', test);
 
+router.get('/', readAllRecord);
+router.get('/:id', readRecordById);
 router.post('/create', verifyAuthorization, createARecord);
-router.get('/read_all', verifyAuthorization, readAllRecord);
-router.get('/read/:id', verifyAuthorization, readRecordById);
 router.put('/update/:id', verifyAuthorization, updateRecord);
 router.delete('/delete/:id', verifyAuthorization, deleteRecord);
 

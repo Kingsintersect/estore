@@ -42,29 +42,30 @@ var _callee = function _callee(req, res, next) {
           validUser = _context.sent;
 
           if (validUser) {
-            _context.next = 11;
+            _context.next = 12;
             break;
           }
 
+          res.locals.user = null;
           return _context.abrupt("return", next((0, _error.errorHandler)(404, "Unauthenticated Cookie user!!")));
 
-        case 11:
+        case 12:
           res.locals.user = validUser;
           return _context.abrupt("return", next());
 
-        case 15:
-          _context.prev = 15;
+        case 16:
+          _context.prev = 16;
           _context.t0 = _context["catch"](0);
           return _context.abrupt("return", res.status(401).json({
             error: "Unauthenticated!!!"
           }));
 
-        case 18:
+        case 19:
         case "end":
           return _context.stop();
       }
     }
-  }, null, null, [[0, 15]]);
+  }, null, null, [[0, 16]]);
 };
 
 exports["default"] = _callee;

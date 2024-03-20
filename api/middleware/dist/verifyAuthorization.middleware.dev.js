@@ -12,7 +12,8 @@ var _error = require("../utils/error.js");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var verifyAuthorization = function verifyAuthorization(req, res, next) {
-  var token = req.headers.access_token;
+  // const token = req.headers.access_token;
+  var token = req.get('Authorization').split(" ")[1];
   if (!token) return res.status(401).json("Access-Denied!");
 
   try {

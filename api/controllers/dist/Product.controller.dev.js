@@ -3,11 +3,11 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.test = exports.deleteRecord = exports.updateRecord = exports.readRecordById = exports.readAllRecord = exports.createARecord = void 0;
+exports.test = exports.deleteProductById = exports.updateproductById = exports.readById = exports.readAll = exports.createProduct = void 0;
 
 var _error = require("../utils/error.js");
 
-var _CategoryModel = _interopRequireDefault(require("../models/Category.model.js"));
+var _ProductModel = _interopRequireDefault(require("../models/Product.model.js"));
 
 var _utilities = require("../utils/utilities.js");
 
@@ -19,100 +19,68 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var createARecord = function createARecord(req, res, next) {
-  var categoryFields, newCategory, errors, key, uniqueCategory;
-  return regeneratorRuntime.async(function createARecord$(_context) {
+var createProduct = function createProduct(req, res, next) {
+  var reqProductFields, newProduct;
+  return regeneratorRuntime.async(function createProduct$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
-          // Access a specific header
-          categoryFields = _objectSpread({}, req.body);
-          if (categoryFields.level == 1) categoryFields.parentCategory = "NULL";
-          categoryFields.title = (0, _utilities.toCamelCase)(categoryFields.title); // CREATE NEW A CATEGORY +++++  ADMIN AUTHORIZATION ONLY
+          reqProductFields = _objectSpread({}, req.body);
+          reqProductFields.title = (0, _utilities.toCamelCase)(reqProductFields.title);
+          newProduct = new _ProductModel["default"](reqProductFields);
+          _context.prev = 3;
+          _context.next = 6;
+          return regeneratorRuntime.awrap(newProduct.save());
 
-          newCategory = new _CategoryModel["default"](categoryFields);
-          _context.prev = 4;
-          errors = {};
-
-          for (key in categoryFields) {
-            if (categoryFields[key].length == 0) errors[key] = "".concat(key, " must not have a value");
-          }
-
-          if (!(Object.keys(errors).length > 0)) {
-            _context.next = 9;
-            break;
-          }
-
-          return _context.abrupt("return", next((0, _error.errorHandler)(400, errors)));
-
-        case 9:
-          _context.next = 11;
-          return regeneratorRuntime.awrap(_CategoryModel["default"].findOne({
-            title: categoryFields.title
-          }));
-
-        case 11:
-          uniqueCategory = _context.sent;
-
-          if (!uniqueCategory) {
-            _context.next = 14;
-            break;
-          }
-
-          return _context.abrupt("return", next((0, _error.errorHandler)(404, "Title Of this Category Already Exists!")));
-
-        case 14:
-          _context.next = 16;
-          return regeneratorRuntime.awrap(newCategory.save());
-
-        case 16:
+        case 6:
           res.status(200).json({
-            message: "Category Record created successfully!"
+            newProduct: newProduct,
+            message: "Product Record created successfully!"
           });
-          _context.next = 22;
+          _context.next = 12;
           break;
 
-        case 19:
-          _context.prev = 19;
-          _context.t0 = _context["catch"](4);
+        case 9:
+          _context.prev = 9;
+          _context.t0 = _context["catch"](3);
           // next(error)
           res.status(500).json(_context.t0.message);
 
-        case 22:
+        case 12:
           return _context.abrupt("return");
 
-        case 23:
+        case 13:
         case "end":
           return _context.stop();
       }
     }
-  }, null, null, [[4, 19]]);
+  }, null, null, [[3, 9]]);
 };
 
-exports.createARecord = createARecord;
+exports.createProduct = createProduct;
 
-var readAllRecord = function readAllRecord(req, res, next) {
-  var allCategory;
-  return regeneratorRuntime.async(function readAllRecord$(_context2) {
+var readAll = function readAll(req, res, next) {
+  var allProduct;
+  return regeneratorRuntime.async(function readAll$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
         case 0:
           _context2.prev = 0;
           _context2.next = 3;
-          return regeneratorRuntime.awrap(_CategoryModel["default"].find({}));
+          return regeneratorRuntime.awrap(_ProductModel["default"].find({}));
 
         case 3:
-          allCategory = _context2.sent;
+          allProduct = _context2.sent;
 
-          if (allCategory) {
+          if (allProduct) {
             _context2.next = 6;
             break;
           }
 
-          return _context2.abrupt("return", next((0, _error.errorHandler)(404, "Empty Category Record!")));
+          return _context2.abrupt("return", next((0, _error.errorHandler)(404, "Empty Product Record!")));
 
         case 6:
-          res.status(200).json(allCategory);
+          res.status(200).json(allProduct);
           _context2.next = 12;
           break;
 
@@ -129,22 +97,22 @@ var readAllRecord = function readAllRecord(req, res, next) {
   }, null, null, [[0, 9]]);
 };
 
-exports.readAllRecord = readAllRecord;
+exports.readAll = readAll;
 
-var readRecordById = function readRecordById(req, res, next) {
-  var SingleCategory;
-  return regeneratorRuntime.async(function readRecordById$(_context3) {
+var readById = function readById(req, res, next) {
+  var SingleProduct;
+  return regeneratorRuntime.async(function readById$(_context3) {
     while (1) {
       switch (_context3.prev = _context3.next) {
         case 0:
           _context3.prev = 0;
           _context3.next = 3;
-          return regeneratorRuntime.awrap(_CategoryModel["default"].findById(req.params.id));
+          return regeneratorRuntime.awrap(_ProductModel["default"].findById(req.params.id));
 
         case 3:
-          SingleCategory = _context3.sent;
+          SingleProduct = _context3.sent;
 
-          if (SingleCategory) {
+          if (SingleProduct) {
             _context3.next = 6;
             break;
           }
@@ -152,7 +120,7 @@ var readRecordById = function readRecordById(req, res, next) {
           return _context3.abrupt("return", next((0, _error.errorHandler)(404, "Could not find this category record!")));
 
         case 6:
-          res.status(200).json(SingleCategory);
+          res.status(200).json(SingleProduct);
           _context3.next = 12;
           break;
 
@@ -169,17 +137,17 @@ var readRecordById = function readRecordById(req, res, next) {
   }, null, null, [[0, 9]]);
 };
 
-exports.readRecordById = readRecordById;
+exports.readById = readById;
 
-var updateRecord = function updateRecord(req, res, next) {
+var updateproductById = function updateproductById(req, res, next) {
   var updatedRecord;
-  return regeneratorRuntime.async(function updateRecord$(_context4) {
+  return regeneratorRuntime.async(function updateproductById$(_context4) {
     while (1) {
       switch (_context4.prev = _context4.next) {
         case 0:
           _context4.prev = 0;
           _context4.next = 3;
-          return regeneratorRuntime.awrap(_CategoryModel["default"].findByIdAndUpdate(req.params.id, {
+          return regeneratorRuntime.awrap(_ProductModel["default"].findByIdAndUpdate(req.params.id, {
             $set: req.body
           }, {
             "new": true
@@ -207,16 +175,16 @@ var updateRecord = function updateRecord(req, res, next) {
   }, null, null, [[0, 7]]);
 };
 
-exports.updateRecord = updateRecord;
+exports.updateproductById = updateproductById;
 
-var deleteRecord = function deleteRecord(req, res, next) {
-  return regeneratorRuntime.async(function deleteRecord$(_context5) {
+var deleteProductById = function deleteProductById(req, res, next) {
+  return regeneratorRuntime.async(function deleteProductById$(_context5) {
     while (1) {
       switch (_context5.prev = _context5.next) {
         case 0:
           _context5.prev = 0;
           _context5.next = 3;
-          return regeneratorRuntime.awrap(_CategoryModel["default"].findByIdAndDelete(req.params.id));
+          return regeneratorRuntime.awrap(_ProductModel["default"].findByIdAndDelete(req.params.id));
 
         case 3:
           res.status(201).json({
@@ -238,11 +206,11 @@ var deleteRecord = function deleteRecord(req, res, next) {
   }, null, null, [[0, 6]]);
 };
 
-exports.deleteRecord = deleteRecord;
+exports.deleteProductById = deleteProductById;
 
 var test = function test(req, res) {
   res.json({
-    message: "Api welcome category route",
+    message: "Api welcome product route",
     body: _objectSpread({}, req.body)
   });
 };

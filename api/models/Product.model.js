@@ -1,6 +1,4 @@
 import mongoose, { SchemaType } from "mongoose";
-import Category from "./Category.model";
-
 
 const productSchema = new mongoose.Schema({
     title: {
@@ -28,7 +26,7 @@ const productSchema = new mongoose.Schema({
         type: String,
     },
     sizes: {
-        type: [String],
+        type: [{}],
     },
     imageUrl: {
         type: String,
@@ -42,10 +40,15 @@ const productSchema = new mongoose.Schema({
     numRating: {
         type: Number,
     },
-
-    category: {
-        type: Category,
-    }
+    topLavelCategory: {
+        type: String
+    },
+    secondLavelCategory: {
+        type: String
+    },
+    thirdLavelCategory: {
+        type: String
+    },
 }, { timestamps: true });
 
 const Product = mongoose.model('Product', productSchema);

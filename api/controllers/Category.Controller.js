@@ -1,24 +1,24 @@
-import jwt from "jsonwebtoken";
 import { errorHandler } from "../utils/error.js";
 import Category from "../models/Category.model.js";
+import { toCamelCase } from "../utils/utilities.js";
 
 
 export const createARecord = async (req, res, next) => {
     // Access a specific header
-    const categoryItems = { ...req.body };
-    if (categoryItems.level == 1) categoryItems.parentCategory = "NULL";
-    categoryItems.title = toCamelCase(categoryItems.title)
+    const categoryFields = { ...req.body };
+    if (categoryFields.level == 1) categoryFields.parentCategory = "NULL";
+    categoryFields.title = toCamelCase(categoryFields.title)
 
     // CREATE NEW A CATEGORY +++++  ADMIN AUTHORIZATION ONLY
-    const newCategory = new Category(categoryItems);
+    const newCategory = new Category(categoryFields);
     try {
         let errors = {};
-        for (const key in categoryItems) {
-            if (categoryItems[key].length == 0) errors[key] = `${key} must not have a value`;
+        for (const key in categoryFields) {
+            if (categoryFields[key].length == 0) errors[key] = `${key} must not have a value`;
         }
         if (Object.keys(errors).length > 0) return next(errorHandler(400, errors))
 
-        const uniqueCategory = await Category.findOne({ title: categoryItems.title });
+        const uniqueCategory = await Category.findOne({ title: categoryFields.title });
 
         if (uniqueCategory) return next(errorHandler(404, "Title Of this Category Already Exists!"));
 
@@ -92,10 +92,4 @@ export const deleteRecord = async (req, res, next) => {
 
 export const test = (req, res) => {
     res.json({ message: "Api welcome category route", body: { ...req.body } })
-}
-
-export const toCamelCase = (letter) => {
-    const str = letter.toLowerCase();
-    // str.charAt(0).toUpperCase() + str.slice(1);
-    return str[0].toUpperCase() + str.slice(1);
 }

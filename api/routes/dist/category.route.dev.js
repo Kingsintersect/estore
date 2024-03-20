@@ -16,9 +16,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 var router = _express["default"].Router();
 
 router.post('/test', _CategoryController.test);
+router.get('/', _CategoryController.readAllRecord);
+router.get('/:id', _CategoryController.readRecordById);
 router.post('/create', _verifyAuthorizationMiddleware.verifyAuthorization, _CategoryController.createARecord);
-router.get('/read_all', _verifyAuthorizationMiddleware.verifyAuthorization, _CategoryController.readAllRecord);
-router.get('/read/:id', _verifyAuthorizationMiddleware.verifyAuthorization, _CategoryController.readRecordById);
 router.put('/update/:id', _verifyAuthorizationMiddleware.verifyAuthorization, _CategoryController.updateRecord);
 router["delete"]('/delete/:id', _verifyAuthorizationMiddleware.verifyAuthorization, _CategoryController.deleteRecord);
 var _default = router;
