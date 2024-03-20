@@ -18,6 +18,8 @@ var _categoryRoute = _interopRequireDefault(require("./routes/category.route.js"
 
 var _productRoute = _interopRequireDefault(require("./routes/product.route.js"));
 
+var _sizeRoute = _interopRequireDefault(require("./routes/size.route.js"));
+
 var _trimMiddleware = require("./middleware/trim.middleware.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
@@ -52,6 +54,7 @@ app.use('/api/auth', _authRoute["default"]);
 app.use('/api/me', _authRoute["default"]);
 app.use('/api/category', _categoryRoute["default"]);
 app.use('/api/product', _productRoute["default"]);
+app.use('/api/size', _sizeRoute["default"]);
 app.use(function (err, req, res, next) {
   var statusCode = err.statusCode || 500;
   var message = err.message || "Internal Server Error!";

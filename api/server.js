@@ -7,6 +7,7 @@ import userRouter from './routes/user.route.js';
 import authRouter from './routes/auth.route.js';
 import categoryRouter from './routes/category.route.js';
 import productRouter from './routes/product.route.js';
+import sizeRouter from './routes/size.route.js';
 import { trim } from './middleware/trim.middleware.js';
 
 dotenv.config();
@@ -44,6 +45,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/me', authRouter);
 app.use('/api/category', categoryRouter);
 app.use('/api/product', productRouter);
+app.use('/api/size', sizeRouter);
 
 app.use((err, req, res, next) => {
     const statusCode = err.statusCode || 500;
