@@ -5,9 +5,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports["default"] = exports.CategoryModel = exports.Parent = void 0;
-
-var _mongodb = require("mongodb");
+exports["default"] = exports.RatingModel = void 0;
 
 var _mongoose = _interopRequireWildcard(require("mongoose"));
 
@@ -21,41 +19,25 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var Parent = {
-  title: String,
-  lavel: Number,
-  parentCategory: String
-};
-exports.Parent = Parent;
-var CategoryModel = {
-  title: {
+var RatingModel = {
+  userId: {
     type: String,
-    max: 50,
-    require: true,
-    unique: true
+    require: true
   },
-  level: {
-    type: Number
-  },
-  parentCategory: {
+  productId: {
     type: String,
-    "default": "NULL"
-  } // parentCategory: {
-  //     type: Map,
-  //     of: String,
-  //     default: ""
-  // },
-  // parentCategory: {
-  //     type: Parent
-  // },
-
+    required: true
+  },
+  rating: {
+    type: _mongoose["default"].Schema.Types.Decimal128
+  }
 };
-exports.CategoryModel = CategoryModel;
-var categorySchema = new _mongoose["default"].Schema(_objectSpread({}, CategoryModel), {
+exports.RatingModel = RatingModel;
+var ratingSchema = new _mongoose["default"].Schema(_objectSpread({}, RatingModel), {
   timestamps: true
 });
 
-var Category = _mongoose["default"].model('categories', categorySchema);
+var Rating = _mongoose["default"].model('ratings', ratingSchema);
 
-var _default = Category;
+var _default = Rating;
 exports["default"] = _default;

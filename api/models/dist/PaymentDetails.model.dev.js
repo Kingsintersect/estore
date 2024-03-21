@@ -3,11 +3,11 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports["default"] = exports.UserModel = void 0;
+exports["default"] = exports.paymentDetailsModel = void 0;
+
+var _mongodb = require("mongodb");
 
 var _mongoose = _interopRequireDefault(require("mongoose"));
-
-var _AddressModel = require("./Address.model.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -17,66 +17,42 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-// const addressSchema = new mongoose.Schema({
-//     userId: {
-//         type: String,
-//     },
-//     streetAddress: {
-//         type: String,
-//     },
-//     city: {
-//         type: Number,
-//     },
-//     state: {
-//         type: Number,
-//     },
-//     zip_code: {
-//         type: Number,
-//     },
-//     mobile: {
-//         type: Number,
-//     },
-// })
-var UserModel = {
-  firstName: {
+var paymentDetailsModel = {
+  PaymentMethod: {
     type: String,
     required: true
   },
-  lastName: {
+  status: {
     type: String,
     required: true
   },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-    lowercase: true
-  },
-  password: {
+  paymentId: {
     type: String,
     required: true
   },
-  role: {
-    type: String
+  stripPaymentLinkId: {
+    type: String,
+    required: true
   },
-  mobile: {
-    type: String
+  stripPaymentLinkReferenceId: {
+    type: String,
+    required: true
   },
-  address: [_AddressModel.AddressModel],
-  payment_information: [],
-  review: [],
-  rating: [],
-  isAdmin: {
-    type: Boolean,
-    "default": false
+  stripPaymentLinkStatus: {
+    type: String,
+    required: true
+  },
+  stripPaymentId: {
+    type: String,
+    required: true
   }
 };
-exports.UserModel = UserModel;
-var userSchema = new _mongoose["default"].Schema(_objectSpread({}, UserModel), {
+exports.paymentDetailsModel = paymentDetailsModel;
+var paymentDetailsSchema = new _mongoose["default"].Schema(_objectSpread({}, paymentDetailsModel), {
   timestamps: true
 });
 
-var User = _mongoose["default"].model('users', userSchema);
+var paymentDetails = _mongoose["default"].model('paymentDetail', paymentDetailsSchema);
 
-var _default = User;
+var _default = paymentDetails;
 exports["default"] = _default;

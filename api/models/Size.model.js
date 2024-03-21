@@ -1,7 +1,6 @@
 import mongoose, { SchemaType } from "mongoose";
 
-
-const sizeSchema = new mongoose.Schema({
+export const SizeModel = {
     name: {
         type: String,
         required: true,
@@ -15,7 +14,9 @@ const sizeSchema = new mongoose.Schema({
     //     type: Number,
     //     required: true,
     // },
-}, { timestamps: true });
+}
+
+const sizeSchema = new mongoose.Schema({ ...SizeModel }, { timestamps: true });
 
 const Size = mongoose.model('sizes', sizeSchema);
 

@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 
-
-const paymentInformationSchema = new mongoose.Schema({
+export const paymentInformationModel = {
     cardHolderName: {
         type: String,
         required: true,
@@ -11,14 +10,16 @@ const paymentInformationSchema = new mongoose.Schema({
         required: true,
     },
     expirationDate: {
-        type: String,
+        type: Date,
         required: true,
     },
     cvv: {
         type: String,
         required: true,
     }
-}, { timestamps: true });
+};
+
+const paymentInformationSchema = new mongoose.Schema({ ...paymentInformationModel }, { timestamps: true });
 
 const PaymentInformation = mongoose.model('PaymentInformation', paymentInformationSchema);
 

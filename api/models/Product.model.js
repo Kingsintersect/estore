@@ -1,6 +1,7 @@
 import mongoose, { SchemaType } from "mongoose";
+import { SizeModel } from "./Size.model.js";
 
-const productSchema = new mongoose.Schema({
+export const ProductModel = {
     title: {
         type: String,
     },
@@ -26,7 +27,7 @@ const productSchema = new mongoose.Schema({
         type: String,
     },
     sizes: {
-        type: [{}],
+        type: [SizeModel],
     },
     imageUrl: {
         type: String,
@@ -49,7 +50,9 @@ const productSchema = new mongoose.Schema({
     thirdLavelCategory: {
         type: String
     },
-}, { timestamps: true });
+}
+
+const productSchema = new mongoose.Schema({ ...ProductModel }, { timestamps: true });
 
 const Product = mongoose.model('Product', productSchema);
 

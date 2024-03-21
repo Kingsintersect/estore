@@ -3,11 +3,9 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports["default"] = exports.UserModel = void 0;
+exports["default"] = exports.AddressModel = void 0;
 
 var _mongoose = _interopRequireDefault(require("mongoose"));
-
-var _AddressModel = require("./Address.model.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -17,27 +15,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-// const addressSchema = new mongoose.Schema({
-//     userId: {
-//         type: String,
-//     },
-//     streetAddress: {
-//         type: String,
-//     },
-//     city: {
-//         type: Number,
-//     },
-//     state: {
-//         type: Number,
-//     },
-//     zip_code: {
-//         type: Number,
-//     },
-//     mobile: {
-//         type: Number,
-//     },
-// })
-var UserModel = {
+var AddressModel = {
   firstName: {
     type: String,
     required: true
@@ -46,37 +24,28 @@ var UserModel = {
     type: String,
     required: true
   },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-    lowercase: true
-  },
-  password: {
-    type: String,
-    required: true
-  },
-  role: {
+  streetAddress: {
     type: String
+  },
+  city: {
+    type: Number
+  },
+  state: {
+    type: Number
+  },
+  zip_code: {
+    type: Number
   },
   mobile: {
-    type: String
-  },
-  address: [_AddressModel.AddressModel],
-  payment_information: [],
-  review: [],
-  rating: [],
-  isAdmin: {
-    type: Boolean,
-    "default": false
+    type: Number
   }
 };
-exports.UserModel = UserModel;
-var userSchema = new _mongoose["default"].Schema(_objectSpread({}, UserModel), {
+exports.AddressModel = AddressModel;
+var addressSchema = new _mongoose["default"].Schema(_objectSpread({}, AddressModel), {
   timestamps: true
 });
 
-var User = _mongoose["default"].model('users', userSchema);
+var Address = _mongoose["default"].model('address', addressSchema);
 
-var _default = User;
+var _default = Address;
 exports["default"] = _default;

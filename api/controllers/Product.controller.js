@@ -41,6 +41,10 @@ export const readById = async (req, res, next) => {
     }
 }
 
+export const findProductByCategory = async () => { }
+
+export const filterProducts = async () => { }
+
 export const updateproductById = async (req, res, next) => {
 
     try {

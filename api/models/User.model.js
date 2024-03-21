@@ -1,27 +1,28 @@
 import mongoose from "mongoose";
+import { AddressModel } from "./Address.model.js";
 
-const addressSchema = new mongoose.Schema({
-    userId: {
-        type: String,
-    },
-    streetAddress: {
-        type: String,
-    },
-    city: {
-        type: Number,
-    },
-    state: {
-        type: Number,
-    },
-    zip_code: {
-        type: Number,
-    },
-    mobile: {
-        type: Number,
-    },
-})
+// const addressSchema = new mongoose.Schema({
+//     userId: {
+//         type: String,
+//     },
+//     streetAddress: {
+//         type: String,
+//     },
+//     city: {
+//         type: Number,
+//     },
+//     state: {
+//         type: Number,
+//     },
+//     zip_code: {
+//         type: Number,
+//     },
+//     mobile: {
+//         type: Number,
+//     },
+// })
 
-const userSchema = new mongoose.Schema({
+export const UserModel = {
     firstName: {
         type: String,
         required: true,
@@ -46,7 +47,7 @@ const userSchema = new mongoose.Schema({
     mobile: {
         type: String,
     },
-    address: [addressSchema],
+    address: [AddressModel],
     payment_information: [],
     review: [],
     rating: [],
@@ -54,8 +55,9 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     }
+}
 
-}, { timestamps: true });
+const userSchema = new mongoose.Schema({ ...UserModel }, { timestamps: true });
 
 
 const User = mongoose.model('users', userSchema);

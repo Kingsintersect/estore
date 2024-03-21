@@ -1,7 +1,6 @@
 import mongoose, { SchemaType } from "mongoose";
 
-
-const reviewSchema = new mongoose.Schema({
+export const ReviewModel = {
     review: {
         type: String,
     },
@@ -11,7 +10,9 @@ const reviewSchema = new mongoose.Schema({
     userId: {
         type: String,
     },
-}, { timestamps: true });
+}
+
+const reviewSchema = new mongoose.Schema({ ...ReviewModel }, { timestamps: true });
 
 const Review = mongoose.model('Review', reviewSchema);
 

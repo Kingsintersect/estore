@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.test = exports.deleteProductById = exports.updateproductById = exports.readById = exports.readAll = exports.createProduct = void 0;
+exports.test = exports.deleteProductById = exports.updateproductById = exports.filterProducts = exports.findProductByCategory = exports.readById = exports.readAll = exports.createProduct = void 0;
 
 var _error = require("../utils/error.js");
 
@@ -139,14 +139,42 @@ var readById = function readById(req, res, next) {
 
 exports.readById = readById;
 
-var updateproductById = function updateproductById(req, res, next) {
-  var updatedRecord;
-  return regeneratorRuntime.async(function updateproductById$(_context4) {
+var findProductByCategory = function findProductByCategory() {
+  return regeneratorRuntime.async(function findProductByCategory$(_context4) {
     while (1) {
       switch (_context4.prev = _context4.next) {
         case 0:
-          _context4.prev = 0;
-          _context4.next = 3;
+        case "end":
+          return _context4.stop();
+      }
+    }
+  });
+};
+
+exports.findProductByCategory = findProductByCategory;
+
+var filterProducts = function filterProducts() {
+  return regeneratorRuntime.async(function filterProducts$(_context5) {
+    while (1) {
+      switch (_context5.prev = _context5.next) {
+        case 0:
+        case "end":
+          return _context5.stop();
+      }
+    }
+  });
+};
+
+exports.filterProducts = filterProducts;
+
+var updateproductById = function updateproductById(req, res, next) {
+  var updatedRecord;
+  return regeneratorRuntime.async(function updateproductById$(_context6) {
+    while (1) {
+      switch (_context6.prev = _context6.next) {
+        case 0:
+          _context6.prev = 0;
+          _context6.next = 3;
           return regeneratorRuntime.awrap(_ProductModel["default"].findByIdAndUpdate(req.params.id, {
             $set: req.body
           }, {
@@ -154,22 +182,22 @@ var updateproductById = function updateproductById(req, res, next) {
           }));
 
         case 3:
-          updatedRecord = _context4.sent;
+          updatedRecord = _context6.sent;
           res.status(201).json({
             message: "Record updated successfully...",
             updatedRecord: updatedRecord
           });
-          _context4.next = 10;
+          _context6.next = 10;
           break;
 
         case 7:
-          _context4.prev = 7;
-          _context4.t0 = _context4["catch"](0);
-          res.status(500).json(_context4.t0.message);
+          _context6.prev = 7;
+          _context6.t0 = _context6["catch"](0);
+          res.status(500).json(_context6.t0.message);
 
         case 10:
         case "end":
-          return _context4.stop();
+          return _context6.stop();
       }
     }
   }, null, null, [[0, 7]]);
@@ -178,29 +206,29 @@ var updateproductById = function updateproductById(req, res, next) {
 exports.updateproductById = updateproductById;
 
 var deleteProductById = function deleteProductById(req, res, next) {
-  return regeneratorRuntime.async(function deleteProductById$(_context5) {
+  return regeneratorRuntime.async(function deleteProductById$(_context7) {
     while (1) {
-      switch (_context5.prev = _context5.next) {
+      switch (_context7.prev = _context7.next) {
         case 0:
-          _context5.prev = 0;
-          _context5.next = 3;
+          _context7.prev = 0;
+          _context7.next = 3;
           return regeneratorRuntime.awrap(_ProductModel["default"].findByIdAndDelete(req.params.id));
 
         case 3:
           res.status(201).json({
             message: "Record deleted successfully!"
           });
-          _context5.next = 9;
+          _context7.next = 9;
           break;
 
         case 6:
-          _context5.prev = 6;
-          _context5.t0 = _context5["catch"](0);
-          res.status(500).json(_context5.t0.message);
+          _context7.prev = 6;
+          _context7.t0 = _context7["catch"](0);
+          res.status(500).json(_context7.t0.message);
 
         case 9:
         case "end":
-          return _context5.stop();
+          return _context7.stop();
       }
     }
   }, null, null, [[0, 6]]);

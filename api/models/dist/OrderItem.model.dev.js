@@ -3,11 +3,11 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports["default"] = exports.UserModel = void 0;
+exports["default"] = void 0;
+
+var _mongodb = require("mongodb");
 
 var _mongoose = _interopRequireDefault(require("mongoose"));
-
-var _AddressModel = require("./Address.model.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -17,66 +17,41 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-// const addressSchema = new mongoose.Schema({
-//     userId: {
-//         type: String,
-//     },
-//     streetAddress: {
-//         type: String,
-//     },
-//     city: {
-//         type: Number,
-//     },
-//     state: {
-//         type: Number,
-//     },
-//     zip_code: {
-//         type: Number,
-//     },
-//     mobile: {
-//         type: Number,
-//     },
-// })
-var UserModel = {
-  firstName: {
+var OrderItemModel = {
+  order_id: {
     type: String,
     required: true
   },
-  lastName: {
+  product_id: {
     type: String,
     required: true
   },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-    lowercase: true
-  },
-  password: {
+  user_id: {
     type: String,
     required: true
   },
-  role: {
-    type: String
+  size: {
+    type: String,
+    required: true
   },
-  mobile: {
-    type: String
+  qauntity: {
+    type: Number
   },
-  address: [_AddressModel.AddressModel],
-  payment_information: [],
-  review: [],
-  rating: [],
-  isAdmin: {
-    type: Boolean,
-    "default": false
+  price: {
+    type: Number
+  },
+  discountedPrice: {
+    type: Number
+  },
+  deliveryDate: {
+    type: Date
   }
 };
-exports.UserModel = UserModel;
-var userSchema = new _mongoose["default"].Schema(_objectSpread({}, UserModel), {
+var orderItemSchema = new _mongoose["default"].Schema(_objectSpread({}, OrderItemModel), {
   timestamps: true
 });
 
-var User = _mongoose["default"].model('users', userSchema);
+var OrderItem = _mongoose["default"].model('orderItem', orderItemSchema);
 
-var _default = User;
+var _default = OrderItem;
 exports["default"] = _default;

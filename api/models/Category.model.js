@@ -6,9 +6,10 @@ export const Parent = {
     lavel: Number,
     parentCategory: String,
 }
-const categorySchema = new mongoose.Schema({
+export const CategoryModel = {
     title: {
         type: String,
+        max: 50,
         require: true,
         unique: true,
     },
@@ -27,7 +28,8 @@ const categorySchema = new mongoose.Schema({
     // parentCategory: {
     //     type: Parent
     // },
-}, { timestamps: true });
+}
+const categorySchema = new mongoose.Schema({ ...CategoryModel }, { timestamps: true });
 
 const Category = mongoose.model('categories', categorySchema);
 

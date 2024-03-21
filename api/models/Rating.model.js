@@ -1,7 +1,6 @@
 import mongoose, { SchemaType } from "mongoose";
 
-
-const ratingSchema = new mongoose.Schema({
+export const RatingModel = {
     userId: {
         type: String,
         require: true,
@@ -13,8 +12,10 @@ const ratingSchema = new mongoose.Schema({
     rating: {
         type: mongoose.Schema.Types.Decimal128,
     },
-}, { timestamps: true });
+}
 
-const Rating = mongoose.model('Rating', ratingSchema);
+const ratingSchema = new mongoose.Schema({ ...RatingModel }, { timestamps: true });
+
+const Rating = mongoose.model('ratings', ratingSchema);
 
 export default Rating;

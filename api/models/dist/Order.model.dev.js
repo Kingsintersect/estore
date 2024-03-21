@@ -3,11 +3,11 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports["default"] = exports.UserModel = void 0;
+exports["default"] = exports.OrderModel = void 0;
+
+var _mongodb = require("mongodb");
 
 var _mongoose = _interopRequireDefault(require("mongoose"));
-
-var _AddressModel = require("./Address.model.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -17,66 +17,62 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-// const addressSchema = new mongoose.Schema({
-//     userId: {
-//         type: String,
-//     },
-//     streetAddress: {
-//         type: String,
-//     },
-//     city: {
-//         type: Number,
-//     },
-//     state: {
-//         type: Number,
-//     },
-//     zip_code: {
-//         type: Number,
-//     },
-//     mobile: {
-//         type: Number,
-//     },
-// })
-var UserModel = {
-  firstName: {
+var OrderModel = {
+  order_id: {
     type: String,
     required: true
   },
-  lastName: {
+  user_id: {
     type: String,
     required: true
   },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-    lowercase: true
+  orderItems: {
+    type: Map,
+    required: true
   },
-  password: {
+  orderDate: {
+    type: Date,
+    required: true
+  },
+  deliveryDate: {
+    type: Date,
+    required: true
+  },
+  shippingAddress: {
+    type: CUSTOM_ADDRESS,
+    required: true
+  },
+  paymentDetails: {
+    type: NEW__PAYMENT_DETAILS,
+    required: true
+  },
+  totalPrice: {
+    type: _mongodb.Double,
+    required: true
+  },
+  totalDiscountedPrice: {
+    type: Number,
+    required: true
+  },
+  discount: {
+    type: Number,
+    required: true
+  },
+  orderStatus: {
     type: String,
     required: true
   },
-  role: {
-    type: String
-  },
-  mobile: {
-    type: String
-  },
-  address: [_AddressModel.AddressModel],
-  payment_information: [],
-  review: [],
-  rating: [],
-  isAdmin: {
-    type: Boolean,
-    "default": false
+  totalItem: {
+    type: Number,
+    required: true
   }
 };
-exports.UserModel = UserModel;
-var userSchema = new _mongoose["default"].Schema(_objectSpread({}, UserModel), {
+exports.OrderModel = OrderModel;
+var orderSchema = new _mongoose["default"].Schema(_objectSpread({}, OrderModel), {
   timestamps: true
 });
 
-var User = _mongoose["default"].model('users', userSchema);
+var Order = _mongoose["default"].model('order', orderSchema);
 
-var _default = User;
+var _default = Order;
 exports["default"] = _default;

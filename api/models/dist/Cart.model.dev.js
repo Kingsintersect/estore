@@ -3,11 +3,11 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports["default"] = exports.UserModel = void 0;
+exports["default"] = exports.cartTypes = void 0;
+
+var _mongodb = require("mongodb");
 
 var _mongoose = _interopRequireDefault(require("mongoose"));
-
-var _AddressModel = require("./Address.model.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -17,66 +17,37 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-// const addressSchema = new mongoose.Schema({
-//     userId: {
-//         type: String,
-//     },
-//     streetAddress: {
-//         type: String,
-//     },
-//     city: {
-//         type: Number,
-//     },
-//     state: {
-//         type: Number,
-//     },
-//     zip_code: {
-//         type: Number,
-//     },
-//     mobile: {
-//         type: Number,
-//     },
-// })
-var UserModel = {
-  firstName: {
+var cartTypes = {
+  user_id: {
+    // reference user collection
     type: String,
     required: true
   },
-  lastName: {
-    type: String,
+  cartItems: {
+    // references CartItem Collection
+    type: Map,
     required: true
   },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-    lowercase: true
-  },
-  password: {
-    type: String,
+  totalPrice: {
+    type: _mongodb.Double,
     required: true
   },
-  role: {
-    type: String
+  totalItem: {
+    type: Number
   },
-  mobile: {
-    type: String
+  totalDiscountedPrice: {
+    type: Number
   },
-  address: [_AddressModel.AddressModel],
-  payment_information: [],
-  review: [],
-  rating: [],
-  isAdmin: {
-    type: Boolean,
-    "default": false
+  discount: {
+    type: Number
   }
 };
-exports.UserModel = UserModel;
-var userSchema = new _mongoose["default"].Schema(_objectSpread({}, UserModel), {
+exports.cartTypes = cartTypes;
+var cartSchema = new _mongoose["default"].Schema(_objectSpread({}, cartTypes), {
   timestamps: true
 });
 
-var User = _mongoose["default"].model('users', userSchema);
+var Cart = _mongoose["default"].model('cart', cartSchema);
 
-var _default = User;
+var _default = Cart;
 exports["default"] = _default;
